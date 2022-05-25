@@ -1,8 +1,8 @@
 {
   "name": "yamadorimap-api",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.95.0",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "mongodb": "^2.2.36"
+    "express": "^4.18.1"
   }
 }
