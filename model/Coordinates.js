@@ -37,20 +37,17 @@ const params = {
   },
 };
 
-export const createTable = (client) => {
+const setupTable = (client) => {
   const listTableCommand = new ListTablesCommand({
     ExclusiveStartTableName: 'yama',
   });
   client
     .send(listTableCommand)
     .then((tables) => {
-      console.log(tables.TableNames);
-      console.log(tables.TableNames.findIndex((table) => table === tableName));
       if (tables.TableNames.findIndex((table) => table === tableName) === -1) {
         client
           .send(new CreateTableCommand(params))
           .then((data) => {
-            console.log('Table created:' + tableName);
             return data;
           })
           .catch((err) => {
@@ -62,3 +59,7 @@ export const createTable = (client) => {
       console.log(err);
     });
 };
+
+export {
+  setupTable
+}

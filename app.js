@@ -1,4 +1,4 @@
 import { ddbClient } from './services/DBClient.js';
-import { createTable } from './model/Coordinates.js';
+import { setupTables } from './model/index.js';
 
-createTable(ddbClient);
+setupTables(ddbClient)
