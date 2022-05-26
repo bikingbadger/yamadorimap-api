@@ -6,6 +6,6 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 const REGION = 'us-east-1';
 
 // Create the DynamoDB Service Client Object
-const ddbClient = new DynamoDBClient({region: REGION})
+const dbClient = new DynamoDBClient({region: REGION})
 
-export {ddbClient}
+export {dbClient}

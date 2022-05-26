@@ -60,6 +60,4 @@ const setupTable = (client) => {
     });
 };
 
-export {
-  setupTable
-}
+export { setupTable };
