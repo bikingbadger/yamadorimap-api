@@ -3,27 +3,29 @@ import {
   ListTablesCommand,
 } from '@aws-sdk/client-dynamodb';
 
+import { PutCommand } from '@aws-sdk/lib-dynamodb';
+
 const tableName = 'yama_coords';
 
 // Table Setup
 const params = {
   AttributeDefinitions: [
     {
-      AttributeName: 'latLng',
+      AttributeName: 'userID',
       AttributeType: 'S',
     },
     {
-      AttributeName: 'tree',
+      AttributeName: 'latLng',
       AttributeType: 'S',
     },
   ],
   KeySchema: [
     {
-      AttributeName: 'latLng',
+      AttributeName: 'userID',
       KeyType: 'HASH',
     },
     {
-      AttributeName: 'tree',
+      AttributeName: 'latLng',
       KeyType: 'RANGE',
     },
   ],
@@ -60,4 +62,22 @@ const setupTable = (client) => {
     });
 };
 
-export { setupTable };
+const createCoordinate = async (client, coordinates) => {
+  const createCoordinateCommand = new PutCommand({
+    TableName: tableName,
+    Item: {
+      latLng: coordinates.latLng,
+      tree: coordinates.tree,
+      notes: coordinates.notes,
+      image: coordinates.image,
+      public: coordinates.public,
+      userID: coordinates.userID,
+    },
+  });
+
+  const data = await client.send(createCoordinateCommand);
+  return data;
+
+};
+
+export { setupTable, createCoordinate };
