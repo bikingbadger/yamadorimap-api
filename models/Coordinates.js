@@ -62,16 +62,17 @@ const setupTable = (client) => {
     });
 };
 
-const createCoordinate = async (client, coordinates) => {
+const createCoordinate = async (client, coordinate) => {
+  console.log(coordinate);
   const createCoordinateCommand = new PutCommand({
     TableName: tableName,
     Item: {
-      latLng: coordinates.latLng,
-      tree: coordinates.tree,
-      notes: coordinates.notes,
-      image: coordinates.image,
-      public: coordinates.public,
-      userID: coordinates.userID,
+      latLng: coordinate.latLng,
+      tree: coordinate.tree,
+      notes: coordinate.notes,
+      image: coordinate.image,
+      public: coordinate.public,
+      userID: coordinate.userID,
     },
   });
 
@@ -80,7 +81,7 @@ const createCoordinate = async (client, coordinates) => {
 };
 
 const getUserCoordinates = async (client, user) => {
-  console.log('getUserCoordinates',user.userId);
+  console.log('getUserCoordinates', user.userId);
   const getCoordinateCommand = new QueryCommand({
     TableName: tableName,
     ExpressionAttributeValues: {
@@ -89,7 +90,7 @@ const getUserCoordinates = async (client, user) => {
     KeyConditionExpression: 'userID = :s',
   });
   const data = await client.send(getCoordinateCommand);
-  console.log('getUserCoordinates',data);
+  console.log('getUserCoordinates', data);
   return data.Items;
 };
 
