@@ -3,7 +3,7 @@ import {
   ListTablesCommand,
 } from '@aws-sdk/client-dynamodb';
 
-import { PutCommand } from '@aws-sdk/lib-dynamodb';
+import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 
 const tableName = 'yama_coords';
 
@@ -77,7 +77,20 @@ const createCoordinate = async (client, coordinates) => {
 
   const data = await client.send(createCoordinateCommand);
   return data;
-
 };
 
-export { setupTable, createCoordinate };
+const getUserCoordinates = async (client, user) => {
+  console.log('getUserCoordinates',user.userId);
+  const getCoordinateCommand = new QueryCommand({
+    TableName: tableName,
+    ExpressionAttributeValues: {
+      ':s': user.userId,
+    },
+    KeyConditionExpression: 'userID = :s',
+  });
+  const data = await client.send(getCoordinateCommand);
+  console.log('getUserCoordinates',data);
+  return data.Items;
+};
+
+export { setupTable, createCoordinate, getUserCoordinates };

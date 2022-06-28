@@ -1,12 +1,21 @@
+// Environment Variables
+import "dotenv/config.js";
 // HTTP Server
 import express from 'express';
+import cors from 'cors';
 import router from './routes/index.js';
 
 const app = express();
 const PORT = process.env.CONFIGURATION_PORT || 3000;
 
-// DB Setup
+// CORS setup
+const corsOptions = {
+  origin: '*',
+  optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
+// DB Setup
 import { dbClient } from './services/DBClient.js';
 import { setupTables } from './models/index.js';
 

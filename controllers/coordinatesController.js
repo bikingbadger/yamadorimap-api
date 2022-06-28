@@ -1,15 +1,15 @@
 import { dbDocClient } from '../services/DBClient.js';
-import { createCoordinate } from '../models/Coordinates.js';
+import { createCoordinate, getUserCoordinates } from '../models/Coordinates.js';
 
 class coordinatesController {
   async getCoordinates(req, res) {
     try {
+      const data = await getUserCoordinates(dbDocClient, {userId: '123456'});
       res.status(200).json({
-        data: {
-          latLng: '32.123,43.234',
-        },
+        data
       });
     } catch (err) {
+      console.log(err);
       return res.status(400).json({
         message: err.message,
       });
