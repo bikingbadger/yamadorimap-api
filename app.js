@@ -1,12 +1,18 @@
 // Environment Variables
-import "dotenv/config.js";
+import 'dotenv/config.js';
 // HTTP Server
 import express from 'express';
 import cors from 'cors';
 import router from './routes/index.js';
 
 const app = express();
-const PORT = process.env.CONFIGURATION_PORT || 3000;
+
+// function getRandomInt(min, max) {
+//   min = Math.ceil(min);
+//   max = Math.floor(max);
+//   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+// }
+const PORT = process.env.port || 3000; //getRandomInt(3000,3999);
 
 // CORS setup
 const corsOptions = {
@@ -36,18 +42,21 @@ app.get('/', (req, res) => {
 app.use('/api', [...Object.values(router)]);
 
 // Start Server
-async function start() {
-  try {
-    app.listen(PORT, () => {
-      console.log(`Server started on port ${PORT}`);
-    });
-  } catch (e) {
-    console.log({ message: e.message });
-  }
-}
+// async function start() {
+//   try {
+//     app.listen(PORT, () => {
+//       console.log(`Server started on port ${PORT}`);
+//     });
+//   } catch (e) {
+//     console.log({ message: e.message });
+//   }
+// }
 
-if (process.env.NODE_ENV === 'development') {
-  start();
-}
+// if (process.env.NODE_ENV === 'development') {
+//   start();
+// }
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
+});
 
 export { app };
