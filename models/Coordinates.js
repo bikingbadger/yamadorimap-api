@@ -3,7 +3,7 @@ import {
   ListTablesCommand,
 } from '@aws-sdk/client-dynamodb';
 
-import { PutCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
+import { PutCommand, QueryCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
 
 const tableName = 'yama_coords';
 
@@ -67,6 +67,7 @@ const createCoordinate = async (client, coordinate) => {
   const createCoordinateCommand = new PutCommand({
     TableName: tableName,
     Item: {
+      _id: coordinate._id,
       latLng: coordinate.latLng,
       tree: coordinate.tree,
       notes: coordinate.notes,
@@ -85,7 +86,7 @@ const getUserCoordinates = async (client, user) => {
   const getCoordinateCommand = new QueryCommand({
     TableName: tableName,
     ExpressionAttributeValues: {
-      ':s': user.userId,
+      ':s': user.userID,
     },
     KeyConditionExpression: 'userID = :s',
   });
@@ -94,4 +95,19 @@ const getUserCoordinates = async (client, user) => {
   return data.Items;
 };
 
-export { setupTable, createCoordinate, getUserCoordinates };
+const deleteCoordinate = async (client, coordinate) => {
+  
+  const deleteCoordinateCommand = new DeleteCommand({
+    TableName: tableName,
+    Key: {
+      userID: coordinate.userID,
+      latLng: coordinate.latLng,
+    },
+  });
+  
+  const data = await client.send(deleteCoordinateCommand);
+  console.log('deleteCoordinate', data);
+  return data;
+};
+
+export { setupTable, createCoordinate, getUserCoordinates, deleteCoordinate };
