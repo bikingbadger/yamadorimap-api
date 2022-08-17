@@ -5,7 +5,7 @@ import {
 
 import { PutCommand, QueryCommand, DeleteCommand } from '@aws-sdk/lib-dynamodb';
 
-const tableName = 'yama_coords';
+const tableName = 'yamadori';
 
 // Table Setup
 const params = {
@@ -15,7 +15,7 @@ const params = {
       AttributeType: 'S',
     },
     {
-      AttributeName: 'latLng',
+      AttributeName: 'latlng',
       AttributeType: 'S',
     },
   ],
@@ -25,7 +25,7 @@ const params = {
       KeyType: 'HASH',
     },
     {
-      AttributeName: 'latLng',
+      AttributeName: 'latlng',
       KeyType: 'RANGE',
     },
   ],
@@ -63,12 +63,11 @@ const setupTable = (client) => {
 };
 
 const createCoordinate = async (client, coordinate) => {
-  console.log(coordinate);
   const createCoordinateCommand = new PutCommand({
     TableName: tableName,
     Item: {
       _id: coordinate._id,
-      latLng: coordinate.latLng,
+      latlng: coordinate.latlng,
       tree: coordinate.tree,
       notes: coordinate.notes,
       image: coordinate.image,
@@ -82,7 +81,6 @@ const createCoordinate = async (client, coordinate) => {
 };
 
 const getUserCoordinates = async (client, user) => {
-  console.log('getUserCoordinates', user.userId);
   const getCoordinateCommand = new QueryCommand({
     TableName: tableName,
     ExpressionAttributeValues: {
@@ -91,22 +89,19 @@ const getUserCoordinates = async (client, user) => {
     KeyConditionExpression: 'userID = :s',
   });
   const data = await client.send(getCoordinateCommand);
-  console.log('getUserCoordinates', data);
   return data.Items;
 };
 
 const deleteCoordinate = async (client, coordinate) => {
-  
   const deleteCoordinateCommand = new DeleteCommand({
     TableName: tableName,
     Key: {
       userID: coordinate.userID,
-      latLng: coordinate.latLng,
+      latlng: coordinate.latlng,
     },
   });
-  
+
   const data = await client.send(deleteCoordinateCommand);
-  console.log('deleteCoordinate', data);
   return data;
 };
 

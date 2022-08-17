@@ -1,5 +1,9 @@
 import { dbDocClient } from '../services/DBClient.js';
-import { createCoordinate, getUserCoordinates, deleteCoordinate } from '../models/Coordinates.js';
+import {
+  createCoordinate,
+  getUserCoordinates,
+  deleteCoordinate,
+} from '../models/Coordinates.js';
 
 // Examples of using dynamodb
 // https://github.com/awsdocs/aws-sdk-for-javascript-v3/blob/main/doc_source/dynamodb-example-dynamodb-utilities.md
@@ -7,8 +11,9 @@ import { createCoordinate, getUserCoordinates, deleteCoordinate } from '../model
 class coordinatesController {
   async getCoordinates(req, res) {
     try {
+      console.log('getCoordinates', req.auth.sub);
       const data = await getUserCoordinates(dbDocClient, {
-        userID: 'auth0|6280f87aa64d24006f51332d',
+        userID: req.auth.sub,
       });
       res.status(200).json({
         data,
@@ -62,7 +67,7 @@ class coordinatesController {
     try {
       const coordinate = req.body;
       console.log(coordinate);
-      coordinate.userID = 'auth0|6280f87aa64d24006f51332d';
+      coordinate.userID = req.auth.sub;
       const data = await deleteCoordinate(dbDocClient, coordinate);
       console.log(data);
       res
