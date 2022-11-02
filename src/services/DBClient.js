@@ -6,7 +6,7 @@ import { DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 // Set the region
 //const REGION = 'us-east-1';
 const credentials = {
-  Region: process.env.AWS_REGION,
+  Region: process.env.AWS_REGION | 'us-east-1',
   Credentials: {
     AccessKeyId: process.env.AWS_ACCESSKEYID,
     SecretAccessKey: process.env.AWS_SECRETACCESSKEY,

@@ -1,3 +1,22 @@
+## Local Development
+
+### Install
+
+For local development install packages
+
+```
+npm install
+```
+
+### Setup Amazon Details
+
+
+
+### Start local server
+
+```
+npm run server
+```
 
 ## Docker
 

@@ -22,7 +22,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // DB Setup
-import { dbClient } from './services/DBClient.js';
+import { dbClient } from './src/services/DBClient.js';
 import { setupTables } from './models/index.js';
 
 setupTables(dbClient);
