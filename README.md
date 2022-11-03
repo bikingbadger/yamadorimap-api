@@ -8,8 +8,12 @@ For local development install packages
 npm install
 ```
 
-### Setup Amazon Details
+### Setup Environment File
 
+Make sure the following are in an `.env` file in your root directory of the project
+
+- **DB_CONNECT**: mongodb+srv://*{username}*:*{password}*@*{url from mongo}*/?retryWrites=true&w=majority
+- **CORS_ORIGIN**: for testing set to *
 
 
 ### Start local server

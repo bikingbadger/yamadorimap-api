@@ -3,7 +3,8 @@ import 'dotenv/config.js';
 // HTTP Server
 import express from 'express';
 import cors from 'cors';
-import router from './routes/index.js';
+import router from './src/routes/index.js';
+import { dbConnection } from './src/utils/db.js';
 
 const app = express();
 
@@ -16,16 +17,16 @@ const PORT = process.env.port || 3000; //getRandomInt(3000,3999);
 
 // CORS setup
 const corsOptions = {
-  origin: '*',
+  origin: process.env.CORS_ORIGIN,
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
 // DB Setup
-import { dbClient } from './src/services/DBClient.js';
-import { setupTables } from './models/index.js';
+// import { dbClient } from './src/services/DBClient.js';
+// import { setupTables } from './models/index.js';
 
-setupTables(dbClient);
+// setupTables(dbClient);
 
 // Router
 app.use(express.json());
@@ -35,11 +36,8 @@ app.use(
   }),
 );
 
-app.get('/', (req, res) => {
-  res.send('Yamadori API');
-});
 
-app.use('/api', [...Object.values(router)]);
+app.use('/api', router);
 
 // Start Server
 // async function start() {
