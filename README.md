@@ -1,34 +1,10 @@
-## Local Development
+# Yamadori
+## Setup Development Environment
 
-### Install
-
-For local development install packages
-
-```
-npm install
-```
-
-### Setup Amazon Details
-
-
-
-### Start local server
-
-```
-npm run server
-```
-
-## Docker
-
-### Create Docker File
+### Create Docker Container
 
 ```bash
 cd yamadori-api
-docker build -t yamadori-api .
+docker-compose up --build -d mongodb
 ```
 
-### Run service
-
-```bash
-docker run -p 3000:3000 -d --name yamadori-api-ms yamadori-api
-```
