@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node src/app",
-    "server": "cross-env NODE_ENV=development nodemon src/app"
+    "server": "cross-env NODE_ENV=development nodemon src/app",
+    "test": "jest --watch"
   },
   "keywords": [],
   "author": "",
