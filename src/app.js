@@ -3,16 +3,9 @@ import 'dotenv/config.js';
 // HTTP Server
 import express from 'express';
 import cors from 'cors';
-// import router from './routes/index.js';
+//import router from './routes/v1/index.js';
 
 const app = express();
-
-// function getRandomInt(min, max) {
-//   min = Math.ceil(min);
-//   max = Math.floor(max);
-//   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-// }
-const PORT = process.env.NODE_DOCKER_PORT || 3000; //getRandomInt(3000,3999);
 
 // CORS setup
 const corsOptions = {
@@ -39,7 +32,10 @@ app.get('/', (req, res) => {
   res.send('Yamadori API');
 });
 
-// app.use('/api', [...Object.values(router)]);
+//app.use('/api', [...Object.values(router)]);
+app.post('/api/v1/users', (req, res) => {
+  return res.send({ message: 'User created' });
+});
 
 // Start Server
 // async function start() {
@@ -55,8 +51,5 @@ app.get('/', (req, res) => {
 // if (process.env.NODE_ENV === 'development') {
 //   start();
 // }
-app.listen(PORT, () => {
-  console.log(`Server started on port ${PORT}`);
-});
 
 export { app };
