@@ -3,7 +3,7 @@ import 'dotenv/config.js';
 // HTTP Server
 import express from 'express';
 import cors from 'cors';
-import router from './routes/index.js';
+// import router from './routes/index.js';
 
 const app = express();
 
@@ -12,7 +12,7 @@ const app = express();
 //   max = Math.floor(max);
 //   return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
 // }
-const PORT = process.env.port || 3000; //getRandomInt(3000,3999);
+const PORT = process.env.NODE_DOCKER_PORT || 3000; //getRandomInt(3000,3999);
 
 // CORS setup
 const corsOptions = {
@@ -22,10 +22,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // DB Setup
-import { dbClient } from './src/services/DBClient.js';
-import { setupTables } from './models/index.js';
+// import { dbClient } from './services/DBClient.js';
+// import { setupTables } from './models/index.js';
 
-setupTables(dbClient);
+// setupTables(dbClient);
 
 // Router
 app.use(express.json());
@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
   res.send('Yamadori API');
 });
 
-app.use('/api', [...Object.values(router)]);
+// app.use('/api', [...Object.values(router)]);
 
 // Start Server
 // async function start() {

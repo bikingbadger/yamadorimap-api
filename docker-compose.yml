@@ -5,11 +5,30 @@ services:
         image: mongo:latest
         container_name: yamadori-mongodb
         restart: always
+        env_file: ./.env
         environment:
-            MONGO_INITDB_ROOT_USERNAME: mongoadmin
-            MONGO_INITDB_ROOT_PASSWORD: secret
-            MONGO_INITDB_DATABASE: yamadb
+            MONGO_INITDB_ROOT_USERNAME: $MONGO_USERNAME
+            MONGO_INITDB_ROOT_PASSWORD: $MONGO_PASSWORD
+            MONGO_INITDB_DATABASE: $MONGO_DATABASE
         ports:
-            - 27018:27017
+            - $DB_PORT:$MONGODB_DOCKER_PORT
         volumes:
             - ./mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    
+    api:
+        image: node:16-alpine
+        container_name: yamadori-api
+        depends_on:
+            - mongodb
+        build: ./
+        restart: unless-stopped
+        env_file: ./.env
+        ports:
+            - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+        environment:
+            - DB_HOST=mongodb
+            - DB_USER=$DB_USER
+            - DB_PASSWORD=$DB_PASSWORD
+            - DB_NAME=$DB_NAME
+            - DB_PORT=$DB_PORT
+        stdin_open: true
