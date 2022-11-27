@@ -1,9 +1,13 @@
 // Environment Variables
-import 'dotenv/config.js';
+import './utils/env.js';
+
 // HTTP Server
 import express from 'express';
 import cors from 'cors';
-//import router from './routes/v1/index.js';
+import routerV1 from './routes/v1/index.js';
+
+// eslint-disable-next-line no-unused-vars
+import { dbConnection } from './utils/db.js';
 
 const app = express();
 
@@ -13,12 +17,6 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-
-// DB Setup
-// import { dbClient } from './services/DBClient.js';
-// import { setupTables } from './models/index.js';
-
-// setupTables(dbClient);
 
 // Router
 app.use(express.json());
@@ -32,10 +30,10 @@ app.get('/', (req, res) => {
   res.send('Yamadori API');
 });
 
-//app.use('/api', [...Object.values(router)]);
-app.post('/api/v1/users', (req, res) => {
-  return res.send({ message: 'User created' });
-});
+app.use('/api/v1', routerV1);
+// app.post('/api/v1/users', (req, res) => {
+//   return res.send({ message: 'User created' });
+// });
 
 // Start Server
 // async function start() {
