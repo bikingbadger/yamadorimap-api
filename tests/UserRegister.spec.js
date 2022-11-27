@@ -2,6 +2,7 @@ import request from 'supertest';
 import { app } from '../src/app.js';
 import User from '../src/models/User.js';
 
+import { dbConnection } from '../src/utils/db.js';
 
 const testUser = {
   username: 'user1',
@@ -14,10 +15,10 @@ afterEach(async () => {
   await User.deleteMany()
 })
 
-// afterAll(async () => {
-//   // Removes the User collection
-//   await User.drop() 
-// })
+afterAll(async () => {
+  // Close DB Connection
+  await dbConnection.close();
+})
 
 describe('user', () => {
   it('returns 200 OK when register is successful', async () => {
