@@ -6,7 +6,6 @@ import express from 'express';
 import cors from 'cors';
 import routerV1 from './routes/v1/index.js';
 
-// eslint-disable-next-line no-unused-vars
 import { dbConnection } from './utils/db.js';
 
 const app = express();
