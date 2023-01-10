@@ -4,6 +4,7 @@ import {
   getUserCoordinates,
   deleteCoordinate,
 } from '../models/Coordinates.js';
+import { logger } from '../utils/logger.js';
 
 // Examples of using dynamodb
 // https://github.com/awsdocs/aws-sdk-for-javascript-v3/blob/main/doc_source/dynamodb-example-dynamodb-utilities.md
@@ -11,7 +12,7 @@ import {
 class coordinatesController {
   async getCoordinates(req, res) {
     try {
-      console.log('getCoordinates', req.auth.sub);
+      logger.info(`getCoordinates: ${req.auth.sub}`);
       const data = await getUserCoordinates(dbDocClient, {
         userID: req.auth.sub,
       });
@@ -19,7 +20,7 @@ class coordinatesController {
         data,
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(400).json({
         message: err.message,
       });
@@ -33,7 +34,7 @@ class coordinatesController {
         .status(data.$metadata.httpStatusCode)
         .json({ data: { ...req.body }, ...data });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(err.$metadata.httpStatusCode).json({
         error: err.message,
         data: { ...req.body },
@@ -55,7 +56,7 @@ class coordinatesController {
         //  data: { ...req.body }, ...data
       });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(err.$metadata.httpStatusCode).json({
         error: err.message,
         data: { ...req.body },
@@ -66,15 +67,15 @@ class coordinatesController {
   async deleteCoordinate(req, res) {
     try {
       const coordinate = req.body;
-      console.log(coordinate);
+      logger.trace({coordinate});
       coordinate.userID = req.auth.sub;
       const data = await deleteCoordinate(dbDocClient, coordinate);
-      console.log(data);
+      logger.trace({data});
       res
         .status(data.$metadata.httpStatusCode)
         .json({ data: { ...req.body }, ...data });
     } catch (err) {
-      console.log(err);
+      logger.error(err);
       return res.status(err.$metadata.httpStatusCode).json({
         error: err.message,
         data: { ...req.body },

@@ -1,6 +1,7 @@
 import { expressjwt } from 'express-jwt';
 import jwks from 'jwks-rsa';
 
+
 // Auth0 Setup
 const jwtCheck = expressjwt({
   secret: jwks.expressJwtSecret({

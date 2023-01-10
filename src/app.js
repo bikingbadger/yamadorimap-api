@@ -8,6 +8,7 @@ import routerV1 from './routes/v1/index.js';
 
 import { dbConnection } from './utils/db.js';
 
+
 const app = express();
 
 // CORS setup
@@ -30,23 +31,5 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/v1', routerV1);
-// app.post('/api/v1/users', (req, res) => {
-//   return res.send({ message: 'User created' });
-// });
-
-// Start Server
-// async function start() {
-//   try {
-//     app.listen(PORT, () => {
-//       console.log(`Server started on port ${PORT}`);
-//     });
-//   } catch (e) {
-//     console.log({ message: e.message });
-//   }
-// }
-
-// if (process.env.NODE_ENV === 'development') {
-//   start();
-// }
 
 export { app };
