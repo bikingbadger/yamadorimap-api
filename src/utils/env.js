@@ -1,14 +1,15 @@
 import * as dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { logger } from './logger.js';
 
 // eslint-disable-next-line
 const __filename = fileURLToPath(import.meta.url);
-console.log(__filename);
+logger.info(__filename);
 const __dirname = path.dirname(__filename);
-console.log(__dirname);
+logger.info(__dirname);
 const __env_file = path.join(__dirname, `../../.env.${process.env.NODE_ENV}`);
-console.log(__env_file);
+logger.info(__env_file);
 dotenv.config({ path: path.resolve(__env_file) });
 
 export default dotenv;
