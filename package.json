@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node src/index.js",
-    "server": "cross-env NODE_ENV=development LOGLEVEL=trace nodemon index.js| pino-pretty",
+    "start": "node src/apps.js",
+    "server": "cross-env NODE_ENV=development LOGLEVEL=trace nodemon app.js| pino-pretty",
     "test": "cross-env NODE_ENV=test LOGLEVEL=trace NODE_OPTIONS=--experimental-vm-modules jest ./test",
     "lint": "eslint . --fix"
   },
