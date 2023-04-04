@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 ## Docs
 docs/.vitepress/cache
+
+## Upload files
+uploads/
