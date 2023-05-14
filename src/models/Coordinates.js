@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const coordinateSchema = mongoose.Schema({
-  w3w: {
+  latlng: {
     type: String,
     required: true,
     min: 6,

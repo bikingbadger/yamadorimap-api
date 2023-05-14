@@ -17,7 +17,7 @@ coordRouter.post('/', async (req, res) => {
 
       // Create coordinate object
       const coordinate = new Coordinate({
-        w3w: coordinates[coord].w3w,
+        latlng: coordinates[coord].latlng,
         tree: coordinates[coord].tree,
         notes: coordinates[coord].notes,
         public: coordinates[coord].public,
@@ -44,7 +44,9 @@ coordRouter.post('/', async (req, res) => {
 // Read coordinate
 coordRouter.get('/', async (req, res) => {
   console.log('GET: /api/v1/coordinates/');
-  res.status(200).json({ error: false, message: 'Coordinates Retrieved' });
+  const coordinates = await Coordinate.find();
+  console.log(coordinates);
+  res.status(200).json({ error: false, message: 'Coordinates Retrieved', coordinates: coordinates });
 });
 
 // Update
