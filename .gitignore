@@ -6,7 +6,7 @@ node_modules
 # local env files
 .env
 .env.local
-.env.*.local
+.env.*
 
 # Log files
 npm-debug.log*
@@ -22,3 +22,9 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+## Docs
+docs/.vitepress/cache
+
+## Upload files
+uploads/
