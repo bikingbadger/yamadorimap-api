@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node src/apps.js",
+    "start": "node index.js",
     "server": "cross-env NODE_ENV=cloud LOGLEVEL=trace nodemon app.js| pino-pretty",
     "test": "cross-env NODE_ENV=test LOGLEVEL=trace NODE_OPTIONS=--experimental-vm-modules jest ./test",
     "lint": "eslint . --fix"
